@@ -103,14 +103,17 @@ const App = () => {
           {loading ? (
             <div className="loader-container">
               <div className="loader"></div>
-              <p>Scanning global databases...</p>
+              <p>Scanning global databases for 100+ books...</p>
             </div>
           ) : (
-            <div className="books-grid">
-              {books.map((book) => (
-                <BookCard key={book.id} book={book} onClick={setSelectedBook} />
-              ))}
-            </div>
+            <>
+              <div className="books-grid">
+                {books.map((book) => (
+                  <BookCard key={book.id} book={book} onClick={setSelectedBook} />
+                ))}
+              </div>
+              {books.length === 0 && <p className="no-results">No books found. Try a different search.</p>}
+            </>
           )}
         </section>
       </main>
@@ -134,8 +137,10 @@ const App = () => {
                   ))}
                 </div>
                 <div className="modal-actions">
-                  <button className="btn btn-primary">Start Reading</button>
-                  <button className="btn ghost-btn">Download PDF</button>
+                  <a href={selectedBook.read_url} target="_blank" rel="noopener noreferrer" className="btn btn-primary">Start Reading</a>
+                  {selectedBook.download_url && (
+                    <a href={selectedBook.download_url} target="_blank" rel="noopener noreferrer" className="btn ghost-btn">Download PDF</a>
+                  )}
                 </div>
               </div>
             </div>
