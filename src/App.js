@@ -25,7 +25,7 @@ const BookCard = ({ book, onClick }) => (
   </div>
 );
 
-const Navbar = ({ onNavClick }) => (
+const Navbar = ({ onNavClick, currentView }) => (
   <nav className="navbar glass">
     <div className="nav-container">
       <div className="logo-section" onClick={() => onNavClick('home')} style={{ cursor: 'pointer' }}>
@@ -33,10 +33,10 @@ const Navbar = ({ onNavClick }) => (
         <span className="logo-text">LIBRA<span className="accent-text">WORLD</span></span>
       </div>
       <div className="nav-links">
-        <button onClick={() => onNavClick('home')} className="nav-btn">Home</button>
-        <button onClick={() => onNavClick('discover')} className="nav-btn">Discover</button>
-        <button onClick={() => onNavClick('about')} className="nav-btn">About</button>
-        <button onClick={() => onNavClick('contact')} className="nav-btn">Contact</button>
+        <button onClick={() => onNavClick('home')} className={`nav-btn ${currentView === 'home' ? 'active' : ''}`}>Home</button>
+        <button onClick={() => onNavClick('discover')} className={`nav-btn ${currentView === 'discover' ? 'active' : ''}`}>Discover</button>
+        <button onClick={() => onNavClick('about')} className={`nav-btn ${currentView === 'about' ? 'active' : ''}`}>About</button>
+        <button onClick={() => onNavClick('contact')} className={`nav-btn ${currentView === 'contact' ? 'active' : ''}`}>Contact</button>
       </div>
       <div className="nav-actions">
         <button className="btn btn-primary" onClick={() => onNavClick('discover')}>Get Started</button>
@@ -89,7 +89,7 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <Navbar onNavClick={handleNavClick} />
+      <Navbar onNavClick={handleNavClick} currentView={currentView} />
 
       <main className="main-content">
         {currentView === 'home' || currentView === 'discover' ? (
@@ -232,15 +232,15 @@ const App = () => {
           <div className="footer-links">
             <div className="link-group">
               <h4>Library</h4>
-              <a href="#all">All Books</a>
-              <a href="#classics">Classics</a>
-              <a href="#new">New Releases</a>
+              <button onClick={() => onNavClick('discover')} className="footer-link">All Books</button>
+              <button onClick={() => setActiveCategory('world classics')} className="footer-link">Classics</button>
+              <button onClick={() => setActiveCategory('technology')} className="footer-link">Technology</button>
             </div>
             <div className="link-group">
               <h4>Support</h4>
-              <a href="#help">Help Center</a>
-              <a href="#terms">Terms of Service</a>
-              <a href="#privacy">Privacy Policy</a>
+              <button onClick={() => onNavClick('contact')} className="footer-link">Help Center</button>
+              <button onClick={() => onNavClick('about')} className="footer-link">About Us</button>
+              <button onClick={() => onNavClick('contact')} className="footer-link">Contact</button>
             </div>
           </div>
         </div>
